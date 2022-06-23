@@ -1,6 +1,8 @@
 /*
     Traits are similar to a feature often called interfaces in other languages,
-    although with some differences.
+    although with some differences. Trait in Rust are extremly powerfull and
+    can be integrated to implement custom behavior in external crate or even
+    standar functionnality like String struct...
 */
 
 // In a game selling stuff can be considering as shared behavior between different race

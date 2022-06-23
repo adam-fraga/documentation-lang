@@ -1,7 +1,14 @@
-#[derive(Debug)] // so we can inspect the state in a minute
+/*
+    Match is usefull when it comes to manage multiple case of errors or comparison.
+    Most part of the time it's use with Enumeration.
+    the code will not compile if the totality of the variance for a given enum are not
+    covered in match branches.
+*/
+
+#[derive(Debug)]
 enum UsState {
     Alabama,
-    Alaska,
+    _Alaska,
 }
 
 enum Coin {
@@ -12,21 +19,26 @@ enum Coin {
 }
 
 fn main() {
-    //Match is a controll flow which compare a value against different pattern.
-    //Opposite to if it can return any type not only bool (here the type is Coin)
+    /*
+        Match is a controll flow which compare a value against different pattern.
+        Contrarly to if statement match can return any type not only bool (here the type is Coin)
+    */
     fn value_in_cents(coin: Coin) -> u8 {
+        /*
+            Arm of branch is composed by a pattern "Coin", separator "=>" and code to exec (1)
+            the code after the separator is an expression it will be return by match if the pattern
+            is matching.
+        */
+
         match coin {
-            //Arm of branch is composed by a pattern "Coin", separator "=>" and code to exec (1)
-            //the code after the separator is an expression it will be return by match if the pattern
-            //is matching.
             Coin::Penny => {
-                println!("Lucky penny!"); //branch with multiple line
-                1
+                println!("Lucky penny!"); //{} for multiple lines branches
+                1 // coin match with Coin::Penny
             }
             Coin::Nickel => 5,
             Coin::Dime => 10,
             //State is here an other type of variable (enum UsState)
-            //We can then specifi a coin with more specificities and extract or display state value
+            //We can then specify a coin with more specificities and extract or display state value
             Coin::Quarter(state) => {
                 println!("State quarter from {:?}!", state);
                 25
@@ -43,11 +55,11 @@ fn main() {
 
     //-------------------------------------------------------------------------------------------
 
-    //Match with option function add ont if x exist and nothing if x does not exist
+    //Match with option functionand
     fn plus_one(x: Option<i32>) -> Option<i32> {
         match x {
-            None => None,
-            Some(i) => Some(i + 1),
+            Some(i) => Some(i + 1), // add one if x exist
+            None => None,           //nothing if x does not exist)
         }
     }
 
@@ -79,14 +91,18 @@ fn main() {
 
     //-------------------------------------------------------------------------------------------
 
-    //If the value is not necessary you can use  the "_" which does not bind value
-    //This time we don't need the dice roll result we just said the user must reroll
+    /*
+    Match pattern can also be use with other value than enum like numb, string and so on
+    If the value is not necessary you can use  the "_" which does not bind value
+    This time we don't need the dice roll result we just said the user must reroll
+    */
     let dice_roll2 = 9;
+
     match dice_roll2 {
         3 => add_fancy_hat2(),
         13..=19 => println!("Dice cannot contain that number"), //Range matching
         7 => remove_fancy_hat2(),
-        _ => reroll(),
+        _ => reroll(), // Similar to default in switch statement (All the other case will match this pattern)
     }
 
     fn add_fancy_hat2() {
