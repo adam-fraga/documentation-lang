@@ -1,0 +1,7 @@
+#cargo-modules
+  Utility:
+    Visualize modules inside your project:
+  Cmd:
+    cargo modules generate tree (Visualize modules)
+    cargo modules generate tree --with-types (Visualize modules, Data and Privacy)
+  
