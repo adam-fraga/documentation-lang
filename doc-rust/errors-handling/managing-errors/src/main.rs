@@ -1,12 +1,27 @@
 use std::fs::File;
-use std::io::ErrorKind;
 use std::io;
+use std::io::ErrorKind;
 
 fn main() {
-    // Some function in rust return a Result type, Result is an enum like Option it will make
-    // The error management more easy to deal with.
-    // To fast determine the return type of a function you can set an other type and the compiler
-    // will tell you in the error's message the type founded here Result<File, std::io::Error>
+    /*
+        Rust did not clear the stack by default when he is panicking, if you need it you have to set
+        in the Cargo.toml file:
+        [profile.release]
+        panic = 'abort';
+        Here the code is panicking because index is out of vec range you can display a Backtrace
+        By taping in cli "RUST_BACKTRACE=1 cargo run"
+    */
+
+    let v = vec![1, 2, 3];
+
+    v[99];
+
+    /*
+    Some function in rust return a Result type, Result is an enum like Option it will make
+    The error management more easy to deal with.
+    To fast determine the return type of a function you can set an other type and the compiler
+    will tell you in the error's message the type founded here Result<File, std::io::Error>
+    */
 
     //UNCOMMENT THE LINE BELLOW TO SEE tHE ERROR
 
@@ -44,7 +59,7 @@ fn main() {
         }
     });
 
-    //NOTE unwrap(), expect() and "?" can only be called on Result or Option Type
+    //NOTE unwrap(), expect() and "?" can only be called on Result and Option Type
 
     //Automaticaly call panic if an error is throw and the concerned error or return the result.
     let f3 = File::open("hello.txt").unwrap();
